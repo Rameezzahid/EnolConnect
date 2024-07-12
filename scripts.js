@@ -83,6 +83,8 @@ function submitForm(businessName, proprietorName, businessAddress, contactInfo, 
             entryType: entryType
         };
 
+        console.log("Form data being sent:", formData);
+
         fetch('https://script.google.com/macros/s/AKfycbzRcV0MlkH0Fm2zDMG610uWrPbb4CdET_ZDn0Cm4iACzJbZgRsLrkZbGvyXsnLQOJFpIQ/exec', {
             method: 'POST',
             headers: {
@@ -91,6 +93,7 @@ function submitForm(businessName, proprietorName, businessAddress, contactInfo, 
             body: JSON.stringify(formData)
         }).then(response => response.json())
           .then(data => {
+              console.log("Response from server:", data);
               if (data.status === 'success') {
                   alert(data.message);
               } else {
