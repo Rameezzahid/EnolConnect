@@ -21,6 +21,12 @@
                 <label for="businessAddress">Business Address</label>
                 <input type="text" id="businessAddress" name="businessAddress" required>
             </section>
+
+            <section>
+                <h2>Entry Type</h2>
+                <label><input type="radio" name="entryType" value="Dealer" required> Dealer</label>
+                <label><input type="radio" name="entryType" value="Workshop" required> Workshop</label>
+            </section>
             
             <section>
                 <h2>Contact Information</h2>
@@ -33,7 +39,8 @@
                 <label for="shopBoardPicture">Shop Board Picture</label>
                 <input type="file" id="shopBoardPicture" name="shopBoardPicture" accept="image/*" capture="environment" required>
                 
-                <button type="button" onclick="getLocation()">Get Geolocation</button>
+                <button type="button" id="getGeolocationButton">Get Geolocation</button>
+                <label><input type="checkbox" id="autoGeolocation"> Auto Geolocation</label>
                 <input type="hidden" id="geolocation" name="geolocation">
             </section>
             
