@@ -22,7 +22,7 @@ document.getElementById('leadForm').addEventListener('submit', function(event) {
             geolocation: geolocation
         };
 
-        fetch('https://script.google.com/macros/s/AKfycbxMJCCh9ypFjujWPbfCwgOFb8M_qt1vwxzucDvyzr6vGXCEwGjExXRrZm-eRnnFMm02Kw/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbzRcV0MlkH0Fm2zDMG610uWrPbb4CdET_ZDn0Cm4iACzJbZgRsLrkZbGvyXsnLQOJFpIQ/exec', {
             method: 'POST',
             body: JSON.stringify(formData)
         }).then(response => response.json())
