@@ -1,30 +1,37 @@
 document.getElementById('leadForm').addEventListener('submit', function(event) {
     event.preventDefault();
-    
+
     const businessName = document.getElementById('businessName').value;
     const proprietorName = document.getElementById('proprietorName').value;
     const businessAddress = document.getElementById('businessAddress').value;
     const contactInfo = document.getElementById('contactInfo').value;
     const shopBoardPicture = document.getElementById('shopBoardPicture').files[0];
     const geolocation = document.getElementById('geolocation').value;
-    
-    const formData = new FormData();
-    formData.append('businessName', businessName);
-    formData.append('proprietorName', proprietorName);
-    formData.append('businessAddress', businessAddress);
-    formData.append('contactInfo', contactInfo);
-    formData.append('shopBoardPicture', shopBoardPicture);
-    formData.append('geolocation', geolocation);
 
-    fetch('<YOUR_GOOGLE_APPS_SCRIPT_URL>', {
-        method: 'POST',
-        body: formData
-    }).then(response => response.json())
-      .then(data => {
-          console.log(data);
-      }).catch(error => {
-          console.error('Error:', error);
-      });
+    const reader = new FileReader();
+    reader.readAsDataURL(shopBoardPicture);
+    reader.onload = function () {
+        const formData = {
+            businessName: businessName,
+            proprietorName: proprietorName,
+            businessAddress: businessAddress,
+            contactInfo: contactInfo,
+            shopBoardPicture: reader.result.split(',')[1],  // Base64 string
+            shopBoardPictureType: shopBoardPicture.type,
+            shopBoardPictureName: shopBoardPicture.name,
+            geolocation: geolocation
+        };
+
+        fetch('https://script.google.com/macros/s/AKfycbxMJCCh9ypFjujWPbfCwgOFb8M_qt1vwxzucDvyzr6vGXCEwGjExXRrZm-eRnnFMm02Kw/exec', {
+            method: 'POST',
+            body: JSON.stringify(formData)
+        }).then(response => response.json())
+          .then(data => {
+              console.log(data);
+          }).catch(error => {
+              console.error('Error:', error);
+          });
+    };
 });
 
 function getLocation() {
