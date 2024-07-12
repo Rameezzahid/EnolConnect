@@ -1,13 +1,14 @@
 document.getElementById('leadForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
+    const testInput = document.getElementById('testInput').value;
     const formData = {
-        testKey: "testValue"
+        testInput: testInput
     };
 
     console.log("Form data being sent:", formData);
 
-    fetch('https://script.google.com/macros/s/AKfycbzRcV0MlkH0Fm2zDMG610uWrPbb4CdET_ZDn0Cm4iACzJbZgRsLrkZbGvyXsnLQOJFpIQ/exec', {
+    fetch('https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec', { // replace with your deployment ID
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
