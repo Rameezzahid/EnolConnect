@@ -8,6 +8,12 @@ document.getElementById('leadForm').addEventListener('submit', function(event) {
     const shopBoardPicture = document.getElementById('shopBoardPicture').files[0];
     const geolocation = document.getElementById('geolocation').value;
 
+    const phoneNumberPattern = /^\+\d{1,3}\d{7,14}$/;
+    if (!phoneNumberPattern.test(contactInfo)) {
+        alert('Invalid phone number format. Please use the international format.');
+        return;
+    }
+
     const reader = new FileReader();
     reader.readAsDataURL(shopBoardPicture);
     reader.onload = function () {
@@ -30,9 +36,10 @@ document.getElementById('leadForm').addEventListener('submit', function(event) {
             body: JSON.stringify(formData)
         }).then(response => response.json())
           .then(data => {
-              console.log(data);
+              alert(data.message);
           }).catch(error => {
               console.error('Error:', error);
+              alert('There was an error submitting the form. Please try again.');
           });
     };
 });
