@@ -85,7 +85,7 @@ function submitForm(businessName, proprietorName, businessAddress, contactInfo, 
 
         console.log("Form data being sent:", formData);
 
-        fetch('https://script.google.com/macros/s/AKfycbzRcV0MlkH0Fm2zDMG610uWrPbb4CdET_ZDn0Cm4iACzJbZgRsLrkZbGvyXsnLQOJFpIQ/exec', {
+        fetch('https://script.google.com/macros/s/AKfycbyfAS0DLVMy_3G7qXRQGvsT3f4Iy0yJbdG4ejs7TBrSWcrOBNmWyYHwZjx1-NICeVRxmA/exec', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
