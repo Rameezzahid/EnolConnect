@@ -8,7 +8,10 @@ document.getElementById('leadForm').addEventListener('submit', function(event) {
 
     console.log("Form data being sent:", formData);
 
-    fetch('https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec', { // replace with your deployment ID
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const targetUrl = 'https://script.google.com/macros/s/AKfycbzRcV0MlkH0Fm2zDMG610uWrPbb4CdET_ZDn0Cm4iACzJbZgRsLrkZbGvyXsnLQOJFpIQ/exec';
+
+    fetch(proxyUrl + targetUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
