@@ -24,6 +24,9 @@ document.getElementById('leadForm').addEventListener('submit', function(event) {
 
         fetch('https://script.google.com/macros/s/AKfycbzRcV0MlkH0Fm2zDMG610uWrPbb4CdET_ZDn0Cm4iACzJbZgRsLrkZbGvyXsnLQOJFpIQ/exec', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(formData)
         }).then(response => response.json())
           .then(data => {
