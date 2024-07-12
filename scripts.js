@@ -26,7 +26,7 @@ document.getElementById('leadForm').addEventListener('submit', function(event) {
 
         console.log("Form data being sent:", formData);
 
-        fetch('https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec', { // replace with your deployment ID
+        fetch('https://script.google.com/macros/s/AKfycbzRcV0MlkH0Fm2zDMG610uWrPbb4CdET_ZDn0Cm4iACzJbZgRsLrkZbGvyXsnLQOJFpIQ/exec', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
