@@ -91,7 +91,11 @@ function submitForm(businessName, proprietorName, businessAddress, contactInfo, 
             body: JSON.stringify(formData)
         }).then(response => response.json())
           .then(data => {
-              alert(data.message);
+              if (data.status === 'success') {
+                  alert(data.message);
+              } else {
+                  alert('Error: ' + data.message);
+              }
           }).catch(error => {
               console.error('Error:', error);
               alert('There was an error submitting the form. Please try again.');
