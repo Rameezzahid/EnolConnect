@@ -1,8 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    if (localStorage.getItem('autoGeolocation') === 'true') {
-        document.getElementById('autoGeolocation').checked = true;
-    }
-
     document.getElementById('leadForm').addEventListener('submit', function(event) {
         event.preventDefault();
 
@@ -19,54 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        if (document.getElementById('autoGeolocation').checked) {
-            getLocationAndSubmit(businessName, proprietorName, businessAddress, contactInfo, shopBoardPicture, entryType);
-        } else {
-            submitForm(businessName, proprietorName, businessAddress, contactInfo, shopBoardPicture, entryType, document.getElementById('geolocation').value);
-        }
-    });
-
-    document.getElementById('getGeolocationButton').addEventListener('click', getLocation);
-    document.getElementById('autoGeolocation').addEventListener('change', function() {
-        if (this.checked) {
-            getLocation();
-            localStorage.setItem('autoGeolocation', 'true');
-        } else {
-            localStorage.removeItem('autoGeolocation');
-            localStorage.removeItem('geolocation');
-        }
-    });
-
-    function getLocation() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition);
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-
-    function showPosition(position) {
-        const geolocation = position.coords.latitude + "," + position.coords.longitude;
-        document.getElementById('geolocation').value = geolocation;
-        if (document.getElementById('autoGeolocation').checked) {
-            localStorage.setItem('geolocation', geolocation);
-        }
-    }
-
-    function getLocationAndSubmit(businessName, proprietorName, businessAddress, contactInfo, shopBoardPicture, entryType) {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
-                const geolocation = position.coords.latitude + "," + position.coords.longitude;
-                document.getElementById('geolocation').value = geolocation;
-                localStorage.setItem('geolocation', geolocation);
-                submitForm(businessName, proprietorName, businessAddress, contactInfo, shopBoardPicture, entryType, geolocation);
-            });
-        } else {
-            alert("Geolocation is not supported by this browser.");
-        }
-    }
-
-    function submitForm(businessName, proprietorName, businessAddress, contactInfo, shopBoardPicture, entryType, geolocation) {
         const reader = new FileReader();
         reader.readAsDataURL(shopBoardPicture);
         reader.onload = function () {
@@ -78,13 +26,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 shopBoardPicture: reader.result.split(',')[1],  // Base64 string
                 shopBoardPictureType: shopBoardPicture.type,
                 shopBoardPictureName: shopBoardPicture.name,
-                geolocation: geolocation,
                 entryType: entryType
             };
 
             console.log("Form data being sent:", formData);
 
-            fetch('https://script.google.com/macros/s/AKfycbyfAS0DLVMy_3G7qXRQGvsT3f4Iy0yJbdG4ejs7TBrSWcrOBNmWyYHwZjx1-NICeVRxmA/exec', {
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+            const targetUrl = 'https://script.google.com/macros/s/AKfycbyfAS0DLVMy_3G7qXRQGvsT3f4Iy0yJbdG4ejs7TBrSWcrOBNmWyYHwZjx1-NICeVRxmA/exec';
+
+            fetch(proxyUrl + targetUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -105,5 +55,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('There was an error submitting the form. Please try again.');
             });
         };
-    }
+    });
 });
