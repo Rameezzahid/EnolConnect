@@ -91,17 +91,19 @@ function submitForm(businessName, proprietorName, businessAddress, contactInfo, 
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
-        }).then(response => response.json())
-          .then(data => {
-              console.log("Response from server:", data);
-              if (data.status === 'success') {
-                  alert(data.message);
-              } else {
-                  alert('Error: ' + data.message);
-              }
-          }).catch(error => {
-              console.error('Error:', error);
-              alert('There was an error submitting the form. Please try again.');
-          });
+        }).then(response => {
+            console.log("Response received from server:", response);
+            return response.json();
+        }).then(data => {
+            console.log("Parsed response from server:", data);
+            if (data.status === 'success') {
+                alert(data.message);
+            } else {
+                alert('Error: ' + data.message);
+            }
+        }).catch(error => {
+            console.error('Error:', error);
+            alert('There was an error submitting the form. Please try again.');
+        });
     };
 }
