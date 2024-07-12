@@ -1,4 +1,4 @@
-document.getElementById('leadForm').addEventListener('submit', function(event) {
+document.getElementById('testForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     const testInput = document.getElementById('testInput').value;
@@ -8,22 +8,16 @@ document.getElementById('leadForm').addEventListener('submit', function(event) {
 
     console.log("Form data being sent:", formData);
 
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const targetUrl = 'https://script.google.com/macros/s/AKfycbzRcV0MlkH0Fm2zDMG610uWrPbb4CdET_ZDn0Cm4iACzJbZgRsLrkZbGvyXsnLQOJFpIQ/exec';
-
-    fetch(proxyUrl + targetUrl, {
+    fetch('https://script.google.com/macros/s/AKfycbzRcV0MlkH0Fm2zDMG610uWrPbb4CdET_ZDn0Cm4iACzJbZgRsLrkZbGvyXsnLQOJFpIQ/exec', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(formData)
     })
-    .then(response => {
-        console.log("Response received from server:", response);
-        return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-        console.log("Parsed response from server:", data);
+        console.log("Response received from server:", data);
         if (data.status === 'success') {
             alert(data.message);
         } else {
